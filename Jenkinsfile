@@ -207,10 +207,10 @@ pipeline {
         script {
           docker.withRegistry('https://index.docker.io/v1/', 'dockerhub') {
             // ./vote is the path to the Dockerfile that Jenkins will find from the Github repo
-            def voteImage = docker.build("oskarq/vote:${env.GIT_COMMIT}", "./vote")
-            voteImage.push()
-            voteImage.push("${env.BRANCH_NAME}")
-            voteImage.push("latest")
+            def voteImage = docker.build("oskarq/vote:${env.BUILD_NUMBER}", "./vote")
+           // voteImage.push()
+            voteImage.push("${env.BUILD_NUMBER}")
+           // voteImage.push("latest")
           }
         }
 
