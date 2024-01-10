@@ -262,13 +262,13 @@ pipeline {
      stage('Trigger deployment') {
       agent any
         environment{
-          def GIT_COMMIT = "${env.GIT_COMMIT}"
+          def TAG = "${env.BUILD_NUMBER}"
         }
       steps{
-        echo "${GIT_COMMIT}"
+        echo "${TAG}"
         echo "triggering deployment"
         // passing variables to job deployment run by vote-deploy repository Jenkinsfile
-        build job: 'deployment-argoCD', parameters: [string(name: 'DOCKERTAG', value: GIT_COMMIT)]
+        build job: 'deployment-argoCD', parameters: [string(name: 'DOCKERTAG', value: TAG)]
       }    
    }
     
